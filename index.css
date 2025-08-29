@@ -29,7 +29,7 @@
       /* --- Header --- */
       .header {
         background-color: var(--white);
-        padding: 20px 0;
+        padding: 10px 0;
         box-shadow: var(--box-shadow);
         position: sticky;
         top: 0;
