@@ -522,7 +522,7 @@
       .footer-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 120px;
+        gap: 200px;
       }
 
       .footer-logo {
