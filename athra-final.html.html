@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athra - Inteligência de Dados | Análise de Risco para Transporte</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Playfair+Display:wght@700&family=Roboto+Slab:wght@700&family=Oswald:wght@700&family=Source+Sans+Pro:wght@700&family=Merriweather:wght@700&display=swap');
+
+        :root {
+            --primary-blue: #1C315E; /* Azul escuro, quase marinho */
+            --secondary-blue: #3498db; /* Azul vibrante para destaques */
+            --dark-gray: #333;
+            --light-gray: #f4f4f4;
+            --white: #fff;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header --- */
+        .header {
+            background-color: var(--white);
+            padding: 30px 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            text-decoration: none;
+            color: var(--primary-blue);
+            align-items: center; /* Centraliza horizontalmente o texto */
+        }
+        
+        .logo h1 {
+            font-size: 2em;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1; /* Garante que não haja excesso de espaço acima */
+        }
+
+        .logo span {
+            font-size: 0.8em;
+            font-weight: 500;
+            color: var(--dark-gray);
+            margin-top: 5px; /* Reduz o espaço entre os dois textos */
+        }
+
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .login-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #283747 100%);
+            color: var(--white);
+            padding: 150px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            font-weight: 400;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--primary-blue);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .compliance-badges {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 1.1em;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .badge-icon {
+            color: #2ecc71;
+            font-size: 1.2em;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1550439062-609e1531270e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDkyNXwwfDF8c2VhcmNofDEwfHx0ZWNobm9sb2d5fGVufDB8fHx8fDE3MDI0NjQyNDB8MA&ixlib=rb-4.0.3&q=80&w=2000') center no-repeat;
+            background-size: cover;
+            opacity: 0.2;
+            animation: zoomInOut 10s infinite alternate;
+        }
+
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* --- Seções Gerais --- */
+        .section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .section-light {
+            background-color: var(--white);
+        }
+        
+        .section-dark {
+            background-color: var(--light-gray);
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+        }
+        
+        .section-title-single-line {
+            font-size: 2.2em;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.2em;
+            color: var(--dark-gray);
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        /* --- Nossos Clientes (Nova Versão em Texto) --- */
+        .clients {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            align-items: center;
+            justify-items: center;
+        }
+        
+        .client-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .client-name:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        .client-name.alpha {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-blue);
+        }
+        .client-name.dinamico {
+            font-family: 'Playfair Display', serif;
+            color: #5C677D; /* Um cinza azulado */
+        }
+        .client-name.carga {
+            font-family: 'Roboto Slab', serif;
+            color: #E74C3C; /* Vermelho */
+        }
+        .client-name.rota {
+            font-family: 'Oswald', sans-serif;
+            color: #27AE60; /* Verde esmeralda */
+        }
+        .client-name.central {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #F39C12; /* Amarelo */
+        }
+        .client-name.global {
+            font-family: 'Merriweather', serif;
+            color: #8E44AD; /* Roxo */
+        }
+
+        /* --- Análise Sentinela (antigos Benefícios) --- */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .analysis-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .analysis-icon {
+            font-size: 3em;
+            color: var(--secondary-blue);
+            margin-bottom: 20px;
+        }
+
+        .analysis-card h3 {
+            font-size: 1.8em;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .analysis-card p {
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+
+        /* --- Depoimentos --- */
+        .testimonials {
+            background-color: var(--light-gray);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            margin: 20px;
+        }
+
+        .testimonial-text {
+            font-size: 1.3em;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .testimonial-company {
+            font-size: 0.9em;
+            color: var(--dark-gray);
+            font-style: italic;
+        }
+        
+        /* --- Sindicâncias --- */
+        .sindicancia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            text-align: left;
+        }
+
+        .sindicancia-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-top: 5px solid var(--primary-blue);
+        }
+        
+        .sindicancia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .sindicancia-icon {
+            font-size: 3em;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .sindicancia-card h3 {
+            font-size: 1.6em;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .sindicancia-card p {
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        
+        .check-icon {
+            color: var(--secondary-blue);
+            margin-right: 10px;
+        }
+
+        .sindicancia-benefits {
+            margin-top: 60px;
+            text-align: left;
+        }
+        
+        .sindicancia-benefits h3 {
+            font-size: 2em;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sindicancia-benefits ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .sindicancia-benefits li {
+            background-color: var(--light-gray);
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: var(--dark-gray);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sindicancia-text-final {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 400;
+            color: var(--dark-gray);
+        }
+
+        /* --- Como Funciona --- */
+        .how-it-works {
+            background-color: var(--white);
+            padding: 100px 0;
+        }
+
+        .how-it-works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+            text-align: left;
+        }
+
+        .step-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .step-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--white);
+            background-color: var(--secondary-blue);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+        }
+
+        .step-info h3 {
+            font-size: 1.6em;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .step-info p {
+            font-size: 1.1em;
+            color: var(--dark-gray);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--primary-blue);
+            color: var(--light-gray);
+            padding: 80px 0;
+            text-align: left;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+        }
+        
+        .footer-text-center {
+            text-align: center;
+        }
+
+        .footer-logo p {
+            margin: 0;
+            font-size: 0.9em;
+            line-height: 1.2;
+            margin-top: 5px;
+        }
+
+
+        .footer h4 {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--secondary-blue);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.3em;
+            color: var(--light-gray);
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+
+        /* Botão do WhatsApp */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Media Queries para responsividade */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            .navbar {
+                justify-content: space-between;
+            }
+            .hero {
+                padding: 100px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.8em;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .compliance-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .analysis-grid, .how-it-works-grid, .footer-grid, .sindicancia-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-info {
+                text-align: center;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .analysis-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1201px) {
+            .analysis-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <h1>ATHRA</h1>
+                    <span>Inteligência de Dados</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#analise">Análise Sentinela</a></li>
+                    <li><a href="#sindicancias">Sindicâncias</a></li>
+                    <li><a href="#como-funciona">Como Funciona</a></li>
+                    <li><a href="#clientes">Clientes</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                </ul>
+                <a href="#" class="login-btn">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <h1>Sua operação merece decisões<br>mais inteligentes.</h1>
+            <p>Com tecnologia própria e inteligência de dados, sua empresa ganha em agilidade, segurança e confiabilidade.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary"><i class="far fa-calendar-alt"></i> Agendar Demonstração</a>
+                <a href="#" class="btn btn-secondary"><i class="fas fa-play"></i> Assistir Vídeo Institucional</a>
+            </div>
+            <div class="compliance-badges">
+                <span class="badge"><i class="fas fa-shield-alt badge-icon"></i> LGPD</span>
+                <span class="badge"><i class="fas fa-certificate badge-icon"></i> SOC 2</span>
+                <span class="badge"><i class="fas fa-bolt badge-icon"></i> 99.9% de Disponibilidade</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="clients" id="clientes">
+        <div class="container">
+            <h2 class="section-title">Nossos Clientes</h2>
+            <p class="section-subtitle">Empresas líderes no mercado confiam em nossa tecnologia.</p>
+            <div class="clients-grid">
+                <div class="client-name alpha">Logística Alpha</div>
+                <div class="client-name dinamico">Transporte Dinâmico</div>
+                <div class="client-name carga">Carga Express</div>
+                <div class="client-name rota">Rota Rápida</div>
+                <div class="client-name central">Distribuidora Central</div>
+                <div class="client-name global">Global Shipping</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section benefits" id="analise">
+        <div class="container">
+            <h2 class="section-title section-title-single-line">Sentinela: Inteligência que eleva o nível de segurança da sua operação.</h2>
+            <p class="section-subtitle">Transformando dados em ações eficientes e decisões assertivas.</p>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <i class="fas fa-atom analysis-icon"></i>
+                    <h3>Verificação Completa em Tempo Real</h3>
+                    <p>O Sentinela cruza vastas fontes de dados para fornecer insights precisos em segundos, protegendo sua operação.</p>
+                </div>
+                <div class="analysis-card">
+                    <i class="fas fa-route analysis-icon"></i>
+                    <h3>Soluções Sob Medida para a Logística Inteligente</h3>
+                    <p>Com o Sentinela, oferecemos inteligência sob medida para embarcadores, transportadoras, seguradoras e toda a cadeia logística.</p>
+                </div>
+                <div class="analysis-card">
+                    <i class="fas fa-brain analysis-icon"></i>
+                    <h3>Pontuação de Risco Inteligente</h3>
+                    <p>Utilize o sistema de pontuação automatizada do Sentinela para avaliar riscos e tomar decisões de contratação mais seguras.</p>
+                </div>
+                <div class="analysis-card">
+                    <i class="fas fa-chart-bar analysis-icon"></i>
+                    <h3>Relatórios Dinâmicos e Intuitivos</h3>
+                    <p>Acesse relatórios claros e objetivos com o Sentinela, facilitando auditorias, compliance e a visualização de informações cruciais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--secondary-blue);">O que Nossos Clientes Dizem</h2>
+            <p class="section-subtitle" style="color: var(--dark-gray);">Empresas líderes do setor confiam na Athra para otimizar suas operações e reduzir riscos.</p>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">“Com a Athra, a análise de risco se tornou um processo ágil e confiável, impactando diretamente na redução de incidentes.”</p>
+                    <p class="testimonial-author">Lucas Silva, <span class="testimonial-company">Diretor de Operações - TransForte Logística</span></p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">“A precisão e a velocidade da análise da Athra nos permitem tomar decisões de contratação com muito mais segurança.”</p>
+                    <p class="testimonial-author">Mariana Alves, <span class="testimonial-company">RH - Rodocentro Transportes</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section section-light" id="sindicancias">
+        <div class="container">
+            <h2 class="section-title">Sindicâncias Corporativas Athra</h2>
+            <p class="section-subtitle">Investigação Estratégica com Segurança e Confiabilidade</p>
+            <p>
+                As sindicâncias corporativas da Athra são conduzidas de forma técnica, sigilosa e com alto padrão de precisão. Unimos inteligência de dados, metodologia investigativa e rigor jurídico para apurar fatos relevantes que impactam a integridade, a segurança e a governança de sua empresa.
+                Utilizamos um modelo híbrido de investigação que une tecnologia avançada com diligência em campo, entrevistas estruturadas e análise de evidências.
+            </p>
+
+            <div class="sindicancia-grid">
+                <div class="sindicancia-card">
+                    <div class="sindicancia-icon"><i class="fas fa-search-dollar"></i></div>
+                    <h3>Recursos e Metodologia</h3>
+                    <p>
+                        <i class="fas fa-check-circle check-icon"></i> Diligências Técnicas e Presenciais<br>
+                        <i class="fas fa-check-circle check-icon"></i> Entrevistas Investigativas<br>
+                        <i class="fas fa-check-circle check-icon"></i> Coleta e Análise Documental<br>
+                        <i class="fas fa-check-circle check-icon"></i> Exame de Imagens e Mídias<br>
+                    </p>
+                </div>
+                <div class="sindicancia-card">
+                    <div class="sindicancia-icon"><i class="fas fa-desktop"></i></div>
+                    <h3>Tecnologia e Análise de Dados</h3>
+                    <p>
+                        <i class="fas fa-check-circle check-icon"></i> Cruzamento automatizado de dados públicos e privados<br>
+                        <i class="fas fa-check-circle check-icon"></i> Rastreamento de vínculos e histórico<br>
+                        <i class="fas fa-check-circle check-icon"></i> Sistema de análise de risco por indicadores<br>
+                    </p>
+                </div>
+                <div class="sindicancia-card">
+                    <div class="sindicancia-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Situações Investigadas</h3>
+                    <p>
+                        <i class="fas fa-check-circle check-icon"></i> Fraudes internas e externas<br>
+                        <i class="fas fa-check-circle check-icon"></i> Desvio de recursos ou bens<br>
+                        <i class="fas fa-check-circle check-icon"></i> Conflitos de interesse e conluios<br>
+                        <i class="fas fa-check-circle check-icon"></i> Assédio e condutas antiéticas<br>
+                        <i class="fas fa-check-circle check-icon"></i> Irregularidades em contratações<br>
+                    </p>
+                </div>
+            </div>
+
+            <div class="sindicancia-benefits">
+                <h3>Benefícios para sua empresa</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle check-icon"></i> Relatórios objetivos e jurídicos, com evidências documentadas</li>
+                    <li><i class="fas fa-check-circle check-icon"></i> Apoio na tomada de decisão disciplinar ou jurídica</li>
+                    <li><i class="fas fa-check-circle check-icon"></i> Conformidade com LGPD, compliance e código de ética</li>
+                    <li><i class="fas fa-check-circle check-icon"></i> Preservação da imagem institucional e mitigação de riscos</li>
+                </ul>
+            </div>
+
+            <div class="sindicancia-text-final">
+                <p>Com a Athra, sua sindicância corporativa é conduzida com profissionalismo, agilidade e imparcialidade, assegurando que os fatos sejam devidamente apurados e apresentados de forma clara e estratégica para os gestores.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="como-funciona">
+        <div class="container">
+            <h2 class="section-title section-title-single-line">Como a Athra Transforma Dados em Inteligência Acionável</h2>
+            <p class="section-subtitle">Um processo simples e eficiente para integrar a inteligência de dados na sua rotina.</p>
+            <div class="how-it-works-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <h3>Envio Seguro de Dados</h3>
+                        <p>Através de um portal intuitivo ou integração via API, envie dados de CPF e CNPJ de forma segura.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <h3>Análise Inteligente e Imediata</h3>
+                        <p>Nosso sistema realiza consultas em múltiplas fontes de dados e aplica algoritmos avançados para uma análise completa.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <h3>Relatório Detalhado e Personalizado</h3>
+                        <p>Receba um relatório completo com pontuação de risco, insights relevantes e recomendações claras para sua decisão.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <a href="#" class="footer-logo">ATHRA</a>
+                <p style="margin: 0; font-size: 0.9em; line-height: 1.2; text-align: center;">Inteligência de Dados</p>
+                <div class="social-icons" style="text-align: center; margin-top: 15px;">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Soluções</h4>
+                <ul>
+                    <li><a href="#">Análise de Risco</a></li>
+                    <li><a href="#">Triagem Automatizada</a></li>
+                    <li><a href="#">Monitoramento Contínuo</a></li>
+                    <li><a href="#">Relatórios Inteligentes</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">API para Integração</a></li>
+                    <li><a href="#">Estudos de Caso</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Preços</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contato</h4>
+                <p><i class="fas fa-phone"></i> (11) 3456-7890</p>
+                <p><i class="fas fa-envelope"></i> contato@athra.com.br</p>
+                <p><i class="fas fa-map-marker-alt"></i> Rondonópolis - MT</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Athra Inteligência de Dados. Todos os direitos reservados. | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Serviço</a></p>
+        </div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=551134567890" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+</body>
+</html>

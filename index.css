@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Playfair+Display:wght@700&family=Roboto+Slab:wght@700&family=Oswald:wght@700&family=Source+Sans+Pro:wght@700&family=Merriweather:wght@700&display=swap");
 
       :root {
-        --primary-blue: #1c315e; /* Azul escuro, quase marinho */
+        --primary-blue: #1C315E; /* Azul escuro, quase marinho */
         --secondary-blue: #3498db; /* Azul vibrante para destaques */
         --dark-gray: #333;
         --light-gray: #f4f4f4;
@@ -29,7 +29,7 @@
       /* --- Header --- */
       .header {
         background-color: var(--white);
-        padding: 20px 0;
+        padding: 10px 0;
         box-shadow: var(--box-shadow);
         position: sticky;
         top: 0;
@@ -470,7 +470,7 @@
 
       /* --- Como Funciona --- */
       .how-it-works {
-        background-color: var(--white);
+        background-color: var(--light-gray);
         padding: 100px 0;
       }
 
@@ -494,7 +494,7 @@
         color: var(--white);
         background-color: var(--secondary-blue);
         border-radius: 50%;
-        width: 60px;
+        width: 140px;
         height: 60px;
         line-height: 60px;
         text-align: center;
@@ -526,7 +526,6 @@
       }
 
       .footer-logo {
-        font-size: 1.8em;
         font-weight: 700;
         color: var(--white);
         margin-bottom: 20px;
